@@ -1,0 +1,33 @@
+﻿@model WebApplication1.Models.Player
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>player</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Team name
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.team.name)
+        </dd>
+
+        <dt>
+           Captain name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,58 @@
+﻿@model WebApplication1.Models.Game
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>game</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Red team
+            </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.team.name)
+        </dd>
+
+       
+
+        <dt>
+            Blue team
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.team2.name)
+        </dd>
+        <dt>
+            Winner 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.team1.name)
+        </dd>
+        <dt>
+            Tournament name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(tmodel => tmodel.tournament.name)
+        </dd>
+
+        <dt>
+           Game date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
