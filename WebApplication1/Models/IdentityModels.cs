@@ -15,9 +15,6 @@ namespace WebApplication1.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public int? role_id { get; set; }
-        public UserRole Role { get; set; }
-
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Notez qu'authenticationType doit correspondre à l'élément défini dans CookieAuthenticationOptions.AuthenticationType
@@ -26,6 +23,12 @@ namespace WebApplication1.Models
             return userIdentity;
         }
 
+    }
+
+    public class ApplicationRole : IdentityRole
+    {
+        public ApplicationRole() : base() { }
+        public ApplicationRole(string roleName) : base(roleName) { }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -44,7 +47,6 @@ namespace WebApplication1.Models
         public virtual DbSet<Player> Players { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Tournament> Tournaments { get; set; }
-        public virtual DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
