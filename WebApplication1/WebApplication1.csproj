@@ -338,6 +338,10 @@
     <Compile Include="Migrations\202104100421174_UserRole.Designer.cs">
       <DependentUpon>202104100421174_UserRole.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104100818075_rollback.cs" />
+    <Compile Include="Migrations\202104100818075_rollback.Designer.cs">
+      <DependentUpon>202104100818075_rollback.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CreateRoleViewModel.cs" />
@@ -460,6 +464,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104100421174_UserRole.resx">
       <DependentUpon>202104100421174_UserRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104100818075_rollback.resx">
+      <DependentUpon>202104100818075_rollback.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

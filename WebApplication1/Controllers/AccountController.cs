@@ -155,6 +155,15 @@ namespace WebApplication1.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                if (user.FirstName == "admin")
+                {
+                    await UserManager.AddToRoleAsync(user.Id, "Admin");
+                }
+                else
+                {
+                    await UserManager.AddToRoleAsync(user.Id, "User");
+                }
+                
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);

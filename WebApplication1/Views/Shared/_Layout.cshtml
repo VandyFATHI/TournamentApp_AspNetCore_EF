@@ -30,7 +30,7 @@
                     <li>@Html.ActionLink("Players", "Index", "Players")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        if (User.IsInRole("user"))
+                        if (User.IsInRole("User"))
                         {
                             <li>@Html.ActionLink("User", "User_page", "Home")</li>
                         }

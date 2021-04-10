@@ -63,24 +63,8 @@ namespace WebApplication1.Controllers
                     ViewBag.msgError = "This role already exist";
                 }
 
-
-                /*
-                IdentityRole identityRole = new IdentityRole { Name = model.RoleName };
-                IdentityResult result = await _roleManager.CreateAsync(identityRole);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-
-                foreach (IdentityError error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-                */
-
             }
-            return View(new CreateRoleViewModel());
+            return View();
         }
         
         
