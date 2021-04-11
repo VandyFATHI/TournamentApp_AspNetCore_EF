@@ -6,13 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 using System.Security.Claims;
-
+using System.Net;
 
 namespace WebApplication2.Controllers
 {
     public class HomeController : Controller
     {
 
+        private ApplicationDbContext db = new ApplicationDbContext();
         private readonly UserManager<ApplicationUser> _userManager;
         public HomeController(UserManager<ApplicationUser> userManager)
         {
@@ -23,14 +24,41 @@ namespace WebApplication2.Controllers
 
         }
 
+        // GET: tournaments
         public ActionResult Index()
         {
-            /*
-            ClaimsPrincipal currentUser = (ClaimsPrincipal)this.User;
-            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-            ViewBag.msg = currentUserID;*/
-            return View();
+            return View(db.Tournaments.ToList());
         }
+        [HttpGet]
+        public ActionResult Details(long? id)
+        {
+            return RedirectToAction("Details", "Tournaments",new { id = id });
+        }
+
+        public ActionResult Create()
+        {
+            return RedirectToAction("Create", "Tournaments");
+        }
+
+        // GET: tournaments/Delete/5
+        public ActionResult Delete(long? id)
+        {
+            return RedirectToAction("Delete", "Tournaments", new { id = id });
+        }
+
+        public ActionResult addTeam(long? id)
+        {
+
+            return RedirectToAction("addTeam", "Tournaments", new { id = id });
+
+        }
+
+        public ActionResult Edit(long? id)
+        {
+
+            return RedirectToAction("Edit", "Tournaments", new { id = id });
+        }
+
 
 
         public ActionResult About()

@@ -34,6 +34,7 @@ namespace WebApplication1.Controllers
         // GET: tournaments/Details/5
         public ActionResult Details(long? id)
         {
+            System.Diagnostics.Debug.WriteLine(id);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

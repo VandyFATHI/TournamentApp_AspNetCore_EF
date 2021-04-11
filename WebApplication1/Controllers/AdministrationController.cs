@@ -37,7 +37,7 @@ namespace WebApplication1.Controllers
 
         }
 
-        [Authorize]
+
         [HttpGet]
         public ActionResult CreateRole()
         {
