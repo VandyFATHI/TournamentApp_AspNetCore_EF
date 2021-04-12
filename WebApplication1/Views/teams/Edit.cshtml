@@ -60,8 +60,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    @Html.ActionLink("Back to List", "Index", new { id = Model.tournament_id })
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

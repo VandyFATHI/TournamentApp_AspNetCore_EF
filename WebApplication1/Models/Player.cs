@@ -22,6 +22,10 @@
             teams = new HashSet<Team>();
 
         }
+      
+
+
+
         [HiddenInput(DisplayValue = false)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long id { get; set; }

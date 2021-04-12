@@ -1,31 +1,102 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<WebApplication1.Models.Tournament>
+
+@{
+    ViewBag.Title = "Index";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<h2>Page d'accueil</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        @Html.ActionLink("Create New Tournament", "Create", "Tournaments")
+    </p>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
+    <form>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Title: <input type="text" asp-for="SearchString" />
+            <input type="submit" value="Filter" />
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+    </form>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Tournament ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Number of participants
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Game
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model._private)
+            </th>*@
+
+        <th>
+            Starting date
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.started)
+            </th>*@
+        <th>
+            Teams size
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nb_participants)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.game)
+            </td>
+            @*  <td>
+                    @Html.DisplayFor(modelItem => item._private)
+                </td>*@
+
+            <td>
+                @Html.DisplayFor(modelItem => item.start_date)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.started)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.team_size)
+            </td>
+            <td>
+                @if (User.Identity.IsAuthenticated)
+                {
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) <span>|</span>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id }) <span>|</span>
+                    @Html.ActionLink("Add a team", "addTeam", new { id = item.id }) <span>|</span>
+
+                }
+
+                @Html.ActionLink("Details", "Details", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>
+

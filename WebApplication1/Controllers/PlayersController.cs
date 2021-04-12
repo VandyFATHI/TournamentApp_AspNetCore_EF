@@ -15,8 +15,28 @@ namespace WebApplication1.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: players
-        public ActionResult Index()
+        public ActionResult Index(long? id)
         {
+            if (id != null)
+            {
+                ViewBag.ID = id;
+     
+                var tournament = db.Teams.Where(x => x.id == id);
+                var tournament_id = tournament.FirstOrDefault().tournament_id;
+                ViewBag.TID = tournament_id;
+                var aPlayers = db.Players.Where(x => x.team_id == id);
+                ViewBag.nbPlayer = aPlayers.Count();
+
+                var t = db.Tournaments.Where(x => x.id == tournament_id).FirstOrDefault().team_size;
+                ViewBag.tSize = t;
+
+                System.Diagnostics.Debug.WriteLine(aPlayers.Count());
+                System.Diagnostics.Debug.WriteLine(t);
+
+                return View(aPlayers);
+            }
+
+
             var players = db.Players.Include(p => p.team);
             return View(players.ToList());
         }
@@ -37,10 +57,13 @@ namespace WebApplication1.Controllers
         }
 
         // GET: players/Create
-        public ActionResult Create()
+        public ActionResult Create(long? id)
         {
             ViewBag.team_id = new SelectList(db.Teams, "id", "name");
-            return View();
+            ViewBag.teamid = id;
+            Team t = db.Teams.Find(id);
+        
+            return View(new Player(teamId: t.id));
         }
 
         // POST: players/Create
@@ -48,13 +71,15 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,team_id")] Player player)
+        public ActionResult Create(long? id, [Bind(Include = "id,name,team_id")] Player player)
         {
+            
+            player.team_id = (long) id;
             if (ModelState.IsValid)
             {
                 db.Players.Add(player);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = player.team_id } );
             }
 
             ViewBag.team_id = new SelectList(db.Teams, "id", "name", player.team_id);
@@ -90,7 +115,7 @@ namespace WebApplication1.Controllers
 
                 db.Entry(player).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = player.team_id });
             }
             ViewBag.team_id = new SelectList(db.Teams, "id", "name", player.team_id);
             return View(player);
@@ -117,6 +142,7 @@ namespace WebApplication1.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Player player = db.Players.Find(id);
+            long? tid = player.team_id;
             if (player.team.captain_id == id)
             {
                 Team t = player.team;
@@ -126,8 +152,19 @@ namespace WebApplication1.Controllers
             }
             db.Players.Remove(player);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = tid });
         }
+
+        public ActionResult BacktoTournament(long? id)
+        {
+            return RedirectToAction("Details", "Tournaments", new { id = id });
+        }
+
+        public ActionResult BacktoTeams(long? id)
+        {
+            return RedirectToAction("Index", "Teams", new { id = id });
+        }
+
 
         protected override void Dispose(bool disposing)
         {

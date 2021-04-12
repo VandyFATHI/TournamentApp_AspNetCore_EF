@@ -2,12 +2,26 @@
 
 @{
     ViewBag.Title = "Index";
+    var id = ViewBag.ID;
+    var tid = ViewBag.TID;
+    var nbPlayer = ViewBag.nbPlayer;
+    var tsize = ViewBag.tSize;
+
 }
 
-<h2>Index</h2>
+<h2>Index des joueurs du tournoi</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Retour Vers Tournoi", "BackToTournament", new { id = id })
+    @Html.ActionLink("Retour Vers Team", "BacktoTeams", new { id = tid })
+
+    @if (nbPlayer < tsize)
+    {
+        @Html.ActionLink("Create New Player", "Create", new { id = id })
+    }
+
+
+
 </p>
 <table class="table">
     <tr>

@@ -2,9 +2,10 @@
 
 @{
     ViewBag.Title = "Create";
+    var tid = ViewBag.tournament_id;
 }
 
-<h2>Create</h2>
+<h2>Create Game</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,7 +13,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>game</h4>
+  
         @Html.HiddenFor(model => model.tournament_id)
 
         <div class="form-group">
@@ -58,7 +59,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "BacktoTournament", new { id = tid })
 </div>
 
 @section Scripts {

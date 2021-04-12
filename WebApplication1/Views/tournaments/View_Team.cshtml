@@ -1,22 +1,13 @@
 ﻿@model IEnumerable<WebApplication1.Models.Team>
 
 @{
-    ViewBag.Title = "Index";
-    var id = ViewBag.ID;
-    var nbparticipant = ViewBag.tSize;
-    var tnb = ViewBag.nbParticipant;
+    ViewBag.Title = "View_Team";
 }
 
-<h2>Index</h2>
+<h2>Index_TEAMS</h2>
 
 <p>
-    @Html.ActionLink("Retour Vers Tournois", "BackToTournament", new { id = id })
-    @if (nbparticipant > tnb)
-    {
-        @Html.ActionLink("Create New", "Create", new { id = id })
-    }
-
-
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -32,13 +23,14 @@
         <th>
             Team size
         </th>
-        
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
-        
+
         <td>
             @Html.DisplayFor(modelItem => item.name)
         </td>
@@ -52,10 +44,10 @@
             @Html.DisplayFor(modelItem => item.nb_members)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new {id = item.id}) |
-            @Html.ActionLink("Details", "Details", new {id = item.id}) |
-            @Html.ActionLink("Delete", "Delete", new {id = item.id}) |
-            @Html.ActionLink("Join", "addPlayer", new {id = item.id})
+            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
+            @Html.ActionLink("Join", "addPlayer", new { id = item.id })
         </td>
     </tr>
 }
