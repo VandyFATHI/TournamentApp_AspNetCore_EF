@@ -3,13 +3,20 @@
 @{
     ViewBag.Title = "Index";
     var id = ViewBag.ID;
+    var nbparticipant = ViewBag.tSize;
+    var tnb = ViewBag.nbParticipant;
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Retour Vers Tournois", "BackToTournament", new { id = id})
-    @Html.ActionLink("Create New", "Create", new { id= id})
+    @Html.ActionLink("Retour Vers Tournois", "BackToTournament", new { id = id })
+    @if (nbparticipant > tnb)
+    {
+        @Html.ActionLink("Create New", "Create", new { id = id })
+    }
+
+
 </p>
 <table class="table">
     <tr>

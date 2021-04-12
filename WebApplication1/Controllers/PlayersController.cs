@@ -22,9 +22,18 @@ namespace WebApplication1.Controllers
                 ViewBag.ID = id;
      
                 var tournament = db.Teams.Where(x => x.id == id);
-                ViewBag.TID = tournament.FirstOrDefault().tournament_id;
+                var tournament_id = tournament.FirstOrDefault().tournament_id;
+                ViewBag.TID = tournament_id;
+                var aPlayers = db.Players.Where(x => x.team_id == id);
+                ViewBag.nbPlayer = aPlayers.Count();
 
-                return View(db.Players.Where(x => x.team_id == id));
+                var t = db.Tournaments.Where(x => x.id == tournament_id).FirstOrDefault().team_size;
+                ViewBag.tSize = t;
+
+                System.Diagnostics.Debug.WriteLine(aPlayers.Count());
+                System.Diagnostics.Debug.WriteLine(t);
+
+                return View(aPlayers);
             }
 
 
@@ -53,7 +62,7 @@ namespace WebApplication1.Controllers
             ViewBag.team_id = new SelectList(db.Teams, "id", "name");
             ViewBag.teamid = id;
             Team t = db.Teams.Find(id);
-            System.Diagnostics.Debug.WriteLine(id);
+        
             return View(new Player(teamId: t.id));
         }
 
@@ -64,7 +73,7 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(long? id, [Bind(Include = "id,name,team_id")] Player player)
         {
-            System.Diagnostics.Debug.WriteLine(player.team_id);
+            
             player.team_id = (long) id;
             if (ModelState.IsValid)
             {

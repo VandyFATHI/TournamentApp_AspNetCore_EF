@@ -19,8 +19,17 @@ namespace WebApplication1.Controllers
         {
             if (id != null)
             {
+
                 ViewBag.ID = id;
-                return View(db.Teams.Where(x => x.tournament_id == id));
+                var team = db.Teams.Where(x => x.tournament_id == id);
+                var t = db.Tournaments.Where(x => x.id == id).FirstOrDefault().nb_participants;
+                ViewBag.tSize = t;
+                ViewBag.nbParticipant = team.Count();
+
+                System.Diagnostics.Debug.WriteLine(team.Count());
+                System.Diagnostics.Debug.WriteLine(t);
+
+                return View(team);
             }
             var teams = db.Teams.Include(t => t.player).Include(t => t.tournament);
             return View(teams.ToList());

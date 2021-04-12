@@ -4,12 +4,19 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Page d'accueil</h2>
 @if (User.Identity.IsAuthenticated)
 {
     <p>
         @Html.ActionLink("Create New Tournament", "Create", "Tournaments")
     </p>
+
+    <form>
+        <p>
+            Title: <input type="text" asp-for="SearchString" />
+            <input type="submit" value="Filter" />
+        </p>
+    </form>
 }
 
 <table class="table">
