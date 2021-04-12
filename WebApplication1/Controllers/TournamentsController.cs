@@ -31,6 +31,12 @@ namespace WebApplication1.Controllers
             return View(db.Tournaments.ToList());
         }
 
+        public ActionResult View_Team(long? id)
+        {
+            return RedirectToAction("Index", "Teams", new { id = id });
+            //return View(db.Teams.Where(x => x.tournament_id == id));
+        }
+
         // GET: tournaments/Details/5
         public ActionResult Details(long? id)
         {
@@ -69,7 +75,7 @@ namespace WebApplication1.Controllers
                 tournament.ApplicationUserId = currentUserID;
                 db.Tournaments.Add(tournament);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new {id = tournament.id });
             }
 
 
@@ -81,7 +87,7 @@ namespace WebApplication1.Controllers
         {
 
             Tournament t = db.Tournaments.Find(id);
-            return RedirectToAction("Create", "games", new Game(t: t));
+            return RedirectToAction("Create", "games", new { id = id });
         }
         // GET: tournaments/Edit/5
         public ActionResult Edit(long? id)
@@ -95,6 +101,7 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(tournament);
         }
 
@@ -105,21 +112,42 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id, nb_participants,description,game,name,start_date,team_size")] Tournament tournament)
         {
+            String userID = User.Identity.GetUserId();
+            tournament.ApplicationUserId = userID;
             if (ModelState.IsValid)
             {
                 db.Entry(tournament).State = EntityState.Modified;
+             
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new {id = tournament.id });
             }
             return View(tournament);
         }
+
+        public ActionResult Edit_Game(long? id)
+        {
+            return RedirectToAction("Edit", "games", new { id = id });
+        }
+
+        public ActionResult Delete_Game(long? id)
+        {
+            return RedirectToAction("Delete", "games", new { id = id });
+        }
+
+        public ActionResult Details_Game(long? id)
+        {
+            return RedirectToAction("Details", "games", new { id = id });
+        }
+
+
+
 
 
         public ActionResult addTeam(long? id)
         {
 
             Tournament t = db.Tournaments.Find(id);
-            return RedirectToAction("Create", "teams", new Team(tournamentId: t.id));
+            return RedirectToAction("Create", "teams", new { id = id});
 
         }
 
@@ -151,6 +179,13 @@ namespace WebApplication1.Controllers
                     db.Players.Remove(p);
                 }
                 db.SaveChanges();
+
+                foreach(Game g in t.games.ToList())
+                {
+                    db.Games.Remove(g);
+                }
+                db.SaveChanges();
+
                 db.Teams.Remove(t);
             }
             db.SaveChanges();

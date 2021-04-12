@@ -78,14 +78,17 @@ namespace WebApplication2.Controllers
         [Authorize (Roles = "User")]
         public ActionResult User_page()
         {
-            return View();
+            String userID = User.Identity.GetUserId();
+  
+            return View(db.Tournaments.Where(x => x.ApplicationUserId.Equals(userID)));
+            
         }
 
         /* Si l'utilisateur n'est pas un admin, il sera redirigé vers la page login pour qu'il se connecte en tant qu'admin */
         [Authorize (Roles = "Admin")]
         public ActionResult Admin_page()
         {
-            return View();
+            return View(db.Tournaments.ToList());
         }
     }
 }

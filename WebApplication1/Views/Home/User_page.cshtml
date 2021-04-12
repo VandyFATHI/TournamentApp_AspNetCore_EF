@@ -1,8 +1,95 @@
-﻿
+﻿@model IEnumerable<WebApplication1.Models.Tournament>
+
 @{
     ViewBag.Title = "User_page";
 }
 
-<h2>User_page</h2>
-<h3>Welcome @User.Identity.Name</h3>
+<h2>Index</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        @Html.ActionLink("Create New Tournament", "Create", "Tournaments")
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Tournament ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Number of participants
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Game
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model._private)
+            </th>*@
+
+        <th>
+            Starting date
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.started)
+            </th>*@
+        <th>
+            Teams size
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nb_participants)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.game)
+            </td>
+            @*  <td>
+                    @Html.DisplayFor(modelItem => item._private)
+                </td>*@
+
+            <td>
+                @Html.DisplayFor(modelItem => item.start_date)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.started)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.team_size)
+            </td>
+            <td>
+                @if (User.Identity.IsAuthenticated)
+                {
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) <span>|</span>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id }) <span>|</span>
+                    @Html.ActionLink("Add a team", "addTeam", new { id = item.id }) <span>|</span>
+
+                }
+
+                @Html.ActionLink("Details", "Details", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>
 

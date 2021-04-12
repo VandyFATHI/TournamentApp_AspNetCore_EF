@@ -2,12 +2,18 @@
 
 @{
     ViewBag.Title = "Index";
+    var id = ViewBag.ID;
+    var tid = ViewBag.TID;
+    
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Retour Vers Tournoi", "BackToTournament", new { id = id })
+    @Html.ActionLink("Retour Vers Team", "BacktoTeams", new { id = tid })
+    @Html.ActionLink("Create New Player", "Create", new { id = id })
+
 </p>
 <table class="table">
     <tr>

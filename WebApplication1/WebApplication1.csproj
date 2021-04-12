@@ -419,6 +419,7 @@
     <Content Include="Views\players\Index.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Administration\CreateRole.cshtml" />
+    <Content Include="Views\tournaments\View_Team.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
