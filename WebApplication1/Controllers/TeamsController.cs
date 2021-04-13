@@ -15,11 +15,31 @@ namespace WebApplication1.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: teams
-        public ActionResult Index()
+        public ActionResult Index(long? id)
         {
+            if (id != null)
+            {
+
+                ViewBag.ID = id;
+                var team = db.Teams.Where(x => x.tournament_id == id);
+                var t = db.Tournaments.Where(x => x.id == id).FirstOrDefault().nb_participants;
+                ViewBag.tSize = t;
+                ViewBag.nbParticipant = team.Count();
+
+                System.Diagnostics.Debug.WriteLine(team.Count());
+                System.Diagnostics.Debug.WriteLine(t);
+
+                return View(team);
+            }
             var teams = db.Teams.Include(t => t.player).Include(t => t.tournament);
             return View(teams.ToList());
         }
+
+        public ActionResult View_Player(long? id)
+        {
+            return RedirectToAction("Index", "Players", new { id = id });
+        }
+
 
         // GET: teams/Details/5
         public ActionResult Details(long? id)
@@ -37,27 +57,30 @@ namespace WebApplication1.Controllers
         }
 
         // GET: teams/Create
-        public ActionResult Create()
+        public ActionResult Create(long? id)
         {
             ViewBag.captain_id = new SelectList(db.Players, "id", "name");
             ViewBag.tournament_id = new SelectList(db.Tournaments, "id", "name");
-            return View();
+            ViewBag.tid = id;
+            return View(new Team(tournamentId : id));
         }
+
 
         // POST: teams/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name, nb_members, captain_id,tournament_id")] Team team)
+        public ActionResult Create(long? id, [Bind(Include = "name, nb_members, captain_id,tournament_id")] Team team)
         {
+            team.tournament_id = id;
             if (ModelState.IsValid)
             {
                 Tournament t = db.Tournaments.Find(team.tournament_id);
                 team.nb_members = t.team_size;
                 db.Teams.Add(team);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = id});
             }
 
             ViewBag.captain_id = new SelectList(team.players, "id", "name", team.captain_id);
@@ -68,7 +91,8 @@ namespace WebApplication1.Controllers
         public ActionResult addPlayer(long? id)
         {
             Team t = db.Teams.Find(id);
-            return RedirectToAction("Create", "players", new Player(teamId: t.id));
+            return RedirectToAction("Create", "players", new { id = id });
+  
         }
 
         // GET: teams/Edit/5
@@ -99,7 +123,7 @@ namespace WebApplication1.Controllers
             {
                 db.Entry(team).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new {id = team.tournament_id });
             }
             ViewBag.captain_id = new SelectList(team.players, "id", "name", team.captain_id);
             ViewBag.tournament_id = new SelectList(db.Tournaments, "id", "name", team.tournament_id);
@@ -128,6 +152,7 @@ namespace WebApplication1.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Team team = db.Teams.Find(id);
+            long? id1 = team.tournament_id;
 
             foreach (Player p in team.players.ToList())
             {
@@ -135,11 +160,27 @@ namespace WebApplication1.Controllers
             }
             db.SaveChanges();
 
+            
+            foreach (Game g in team.games.ToList())
+            {
+                db.Games.Remove(g);
+            }
+            db.SaveChanges();
+
             db.Teams.Remove(team);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = id1});
         }
 
+        public ActionResult BacktoTournament(long? id)
+        {
+            return RedirectToAction("Details", "Tournaments", new { id = id });
+        }
+
+        public ActionResult BacktoTeams(long? id)
+        {
+            return RedirectToAction("Index", "Teams", new { id = id });
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
