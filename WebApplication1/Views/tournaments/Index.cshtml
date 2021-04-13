@@ -77,7 +77,8 @@
         @Html.DisplayFor(modelItem => item.team_size)
     </td>
     <td>
-        @if (User.Identity.IsAuthenticated)
+        <!-- if model.user == User | admin -->
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
         {
 
             @Html.ActionLink("Edit", "Edit", new { id = item.id }) <span>|</span>

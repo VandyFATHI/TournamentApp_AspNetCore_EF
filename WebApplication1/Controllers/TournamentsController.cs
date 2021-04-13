@@ -31,6 +31,21 @@ namespace WebApplication1.Controllers
             return View(db.Tournaments.ToList());
         }
 
+        // Get : Search?search= {searchRequest}
+        public ActionResult Search(string searchRequest)
+        {
+            if(searchRequest is null || searchRequest == "")
+            {
+                Console.WriteLine("Je suis dans la recherche");
+                return View(db.Tournaments.ToList());
+            }
+            else {
+                Console.WriteLine("Je suis dans la recherche 2 point zero");
+                return View(db.Tournaments.Where(a => a.name.Contains(searchRequest) || a.name == null).ToList());
+            }
+            }
+            
+
         public ActionResult View_Team(long? id)
         {
             return RedirectToAction("Index", "Teams", new { id = id });

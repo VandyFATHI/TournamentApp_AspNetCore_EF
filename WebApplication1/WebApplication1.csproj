@@ -322,10 +322,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+
     <Compile Include="Migrations\202104110310588_createdatabase.cs" />
     <Compile Include="Migrations\202104110310588_createdatabase.Designer.cs">
       <DependentUpon>202104110310588_createdatabase.cs</DependentUpon>
     </Compile>
+
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CreateRoleViewModel.cs" />
@@ -418,8 +420,11 @@
     <Content Include="Views\players\Edit.cshtml" />
     <Content Include="Views\players\Index.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
-    <Content Include="Views\Administration\CreateRole.cshtml" />
+
+    <Content Include="Views\tournaments\Search.cshtml" />
+
     <Content Include="Views\tournaments\View_Team.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -438,11 +443,13 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202104110310588_createdatabase.resx">
       <DependentUpon>202104110310588_createdatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
