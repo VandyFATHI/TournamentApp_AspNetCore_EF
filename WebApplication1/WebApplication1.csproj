@@ -322,26 +322,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202104080933595_addOthersEntities.cs" />
-    <Compile Include="Migrations\202104080933595_addOthersEntities.Designer.cs">
-      <DependentUpon>202104080933595_addOthersEntities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104081048469_addUserRole.cs" />
-    <Compile Include="Migrations\202104081048469_addUserRole.Designer.cs">
-      <DependentUpon>202104081048469_addUserRole.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104081205083_DeleteCustomUserRole.cs" />
-    <Compile Include="Migrations\202104081205083_DeleteCustomUserRole.Designer.cs">
-      <DependentUpon>202104081205083_DeleteCustomUserRole.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104100421174_UserRole.cs" />
-    <Compile Include="Migrations\202104100421174_UserRole.Designer.cs">
-      <DependentUpon>202104100421174_UserRole.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104100818075_rollback.cs" />
-    <Compile Include="Migrations\202104100818075_rollback.Designer.cs">
-      <DependentUpon>202104100818075_rollback.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CreateRoleViewModel.cs" />
@@ -434,6 +414,7 @@
     <Content Include="Views\players\Index.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Administration\CreateRole.cshtml" />
+    <Content Include="Views\tournaments\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -451,23 +432,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202104080933595_addOthersEntities.resx">
-      <DependentUpon>202104080933595_addOthersEntities.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104081048469_addUserRole.resx">
-      <DependentUpon>202104081048469_addUserRole.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104081205083_DeleteCustomUserRole.resx">
-      <DependentUpon>202104081205083_DeleteCustomUserRole.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104100421174_UserRole.resx">
-      <DependentUpon>202104100421174_UserRole.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104100818075_rollback.resx">
-      <DependentUpon>202104100818075_rollback.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
