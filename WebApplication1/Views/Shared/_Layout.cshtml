@@ -22,9 +22,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Tournaments", "Index", "Tournaments")</li>
-                    <li>@Html.ActionLink("Teams", "Index", "Teams")</li>
-                    <li>@Html.ActionLink("Players", "Index", "Players")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         if (User.IsInRole("User"))
@@ -33,10 +30,13 @@
                         }
                         if (User.IsInRole("Admin"))
                         {
+                            <li>@Html.ActionLink("Tournaments", "Index", "Tournaments")</li>
+                            <li>@Html.ActionLink("Teams", "Index", "Teams")</li>
+                            <li>@Html.ActionLink("Players", "Index", "Players")</li>
                             <li>@Html.ActionLink("Admin", "Admin_page", "Home")</li>
                         }
                     }
-                    </ul>
+                </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
