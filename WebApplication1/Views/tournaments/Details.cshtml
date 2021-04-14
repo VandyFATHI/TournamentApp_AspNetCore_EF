@@ -14,7 +14,7 @@
         <dt>
             Tournament name
         </dt>
-        
+
         <dd>
             @Html.DisplayFor(model => model.name)
         </dd>
@@ -42,16 +42,16 @@
             @Html.DisplayFor(model => model.nb_participants)
         </dd>
         @*
-        <dt>
-            @Html.DisplayNameFor(model => model._private)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model._private)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model._private)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model._private)
+            </dd>
         *@
 
-        
+
 
         <dt>
             Start date
@@ -62,13 +62,13 @@
         </dd>
 
         @*
-        <dt>
-            Started
-        </dt>
+            <dt>
+                Started
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.started)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.started)
+            </dd>
         *@
 
         <dt>
@@ -81,64 +81,68 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Add a team", "addTeam", new { id = Model.id }) |
-    @Html.ActionLink("See teams", "View_Team", new { id = Model.id }) |
-    @Html.ActionLink("Create a new tournament game", "CreateGame", new { id = Model.id })|
+@if (User.IsInRole("Admin") )
+{
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) <span>|</span>
+    @Html.ActionLink("Create a new tournament game", "CreateGame", new { id = Model.id })<span>|</span>
 
+}
+<p>
+    @Html.ActionLink("Add a team", "addTeam", new { id = Model.id }) |
+    @Html.ActionLink("See teams", "View_Team", new { id = Model.id }) 
 </p>
 
-    <table class= "table">
+<table class="table">
 
-        <tr>
-            <th>
-                ID
-            </th>
-            <th>
-                Red team
-            </th>
-            <th>
-                Blue team
-            </th>
-            <th>
-                Game date
-            </th>
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Red team
+        </th>
+        <th>
+            Blue team
+        </th>
+        <th>
+            Game date
+        </th>
 
-            <th>
-                Winner Team
-            </th>
-            <th>Actions</th>
-        </tr>
-        @foreach (var game in Model.games)
-        {
+        <th>
+            Winner Team
+        </th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var game in Model.games)
+    {
 
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => game.id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => game.team.name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => game.team2.name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => game.date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => game.team1.name)
-                </td>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => game.id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => game.team.name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => game.team2.name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => game.date)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => game.team1.name)
+    </td>
 
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edit", "Edit_Game", new { id = game.id }) <span>|</span>
+        @Html.ActionLink("Details", "Details_Game", new { id = game.id }) <span>|</span>
+        @Html.ActionLink("Delete", "Delete_Game", new { id = game.id }) 
+    }
+    <td>
+    </td>
+</tr>
+    }
 
-                <td>
-                    @Html.ActionLink("Edit", "Edit_Game", new { id = game.id }) |
-                    @Html.ActionLink("Details", "Details_Game", new { id = game.id }) |
-                    @Html.ActionLink("Delete", "Delete_Game", new { id = game.id }) |
+</table>
 
-                </td>
-            </tr>
-        }
-
-    </table>
-    

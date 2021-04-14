@@ -56,6 +56,7 @@ namespace WebApplication1.Models
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Tournament> Tournaments { get; set; }
 
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

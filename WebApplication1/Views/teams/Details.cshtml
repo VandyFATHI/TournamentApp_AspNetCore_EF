@@ -13,12 +13,13 @@
         <dt>
             Team name
         </dt>
-        
+
         <dd>
-            @Html.DisplayFor(model => model.name)</dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
         <dt>
             Team captain
-            </dt>
+        </dt>
 
         <dd>
             @Html.DisplayFor(model => model.player.name)
@@ -26,7 +27,7 @@
 
         <dt>
             Description
-            </dt>
+        </dt>
 
         <dd>
             @Html.DisplayFor(model => model.tournament.description)
@@ -42,8 +43,11 @@
 
     </dl>
 </div>
+@if (User.IsInRole("Admin")) {
+@Html.ActionLink("Edit", "Edit", new { id = Model.id }) <span>|</span>
+}
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+
     @Html.ActionLink("See Player", "View_Player", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index", new { id = Model.tournament_id })
 </p>

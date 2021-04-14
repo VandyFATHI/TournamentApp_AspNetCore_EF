@@ -12,8 +12,8 @@
 <h2>Index des joueurs du tournoi</h2>
 
 <p>
-    @Html.ActionLink("Retour Vers Tournoi", "BackToTournament", new { id = id })
-    @Html.ActionLink("Retour Vers Team", "BacktoTeams", new { id = tid })
+    @Html.ActionLink("Retour Vers Tournoi", "BackToTournament", new { id = id })|
+    @Html.ActionLink("Retour Vers Team", "BacktoTeams", new { id = tid })|
 
     @if (nbPlayer < tsize)
     {
@@ -43,9 +43,14 @@
             @Html.DisplayFor(modelItem => item.team.name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @if (User.IsInRole("Admin"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) <span>|</span>
+                @Html.ActionLink("Delete", "Delete", new { id = item.id }) <span>|</span>
+            }
+
+            @Html.ActionLink("Details", "Details", new { id = item.id }) 
+
         </td>
     </tr>
 }
