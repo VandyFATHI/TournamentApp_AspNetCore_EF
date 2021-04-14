@@ -13,24 +13,24 @@ namespace WebApplication1
     {
         protected void Application_Start()
         {
-            /*
+            
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                if (db.userRoles.Count() == 0)
+                if (db.Roles.Count() == 0)
                 {
-                    var userRole1 = new userRole();
-                    var userRole2 = new userRole();
+                    var Role1 = new ApplicationRole();
+                    var Role2 = new ApplicationRole();
 
-                    userRole1.role_name = "user";
-                    userRole2.role_name = "admin";
+                    Role1.Name = "Admin";
+                    Role2.Name = "User";
 
-                    db.userRoles.Add(userRole1);
-                    db.userRoles.Add(userRole2);
+                    db.Roles.Add(Role1);
+                    db.Roles.Add(Role2);
                     db.SaveChanges();
 
                 }
             }
-        */
+        
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
