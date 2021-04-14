@@ -28,6 +28,10 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id }) <span>|</span>
+                                                             }
+
     @Html.ActionLink("Back to List", "Index", new { id = Model.team_id })
 </p>
