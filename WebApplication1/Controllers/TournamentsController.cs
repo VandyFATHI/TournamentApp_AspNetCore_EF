@@ -47,7 +47,7 @@ namespace WebApplication1.Controllers
         public ActionResult View_Team(long? id)
         {
             return RedirectToAction("Index", "Teams", new { id = id });
-            //return View(db.Teams.Where(x => x.tournament_id == id));
+            
         }
 
         // GET: tournaments/Details/5

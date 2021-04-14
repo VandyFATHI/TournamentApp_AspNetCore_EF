@@ -18,10 +18,7 @@ namespace WebApplication1.Models
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        //public string RoleId { get; set; }
-        //[ForeignKey("RoleId")]
-        //public userManager UserManager { get; set; }
-        //public ICollection<Tournament> UserTournaments { get; set; }
+        
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -61,10 +58,6 @@ namespace WebApplication1.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<ApplicationUser>().ToTable("Users");
-
-            //modelBuilder.Entity<ApplicationUser>()
-              //  .HasOptional(a => a.UserTournaments);
 
             modelBuilder.Entity<Game>()
                 .Property(e => e.date)

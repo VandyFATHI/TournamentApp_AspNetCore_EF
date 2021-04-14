@@ -16,11 +16,7 @@ namespace WebApplication1.Controllers
             var games = db.Games.Include(g => g.team).Include(g => g.team1).Include(g => g.team2).Include(g => g.tournament);
             return View(games.ToList());
         }
-        /*      /*public ActionResult Index(long? tournament_id)
-                {
-                    var games = db.games.Include(g => g.team).Include(g => g.team1).Include(g => g.team2).Include(g => g.tournament);
-                    return View(games.ToList());
-                }*/
+        
 
         // GET: games/Details/5
         public ActionResult Details(long? id)
