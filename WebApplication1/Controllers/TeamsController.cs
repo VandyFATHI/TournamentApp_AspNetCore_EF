@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
+using Microsoft.AspNet.Identity;
 
 namespace WebApplication1.Controllers
 {
@@ -22,12 +23,18 @@ namespace WebApplication1.Controllers
 
                 ViewBag.ID = id;
                 var team = db.Teams.Where(x => x.tournament_id == id);
-                var t = db.Tournaments.Where(x => x.id == id).FirstOrDefault().nb_participants;
-                ViewBag.tSize = t;
+                var t = db.Tournaments.Where(x => x.id == id).FirstOrDefault();
+                ViewBag.tSize = t.nb_participants;
                 ViewBag.nbParticipant = team.Count();
 
                 System.Diagnostics.Debug.WriteLine(team.Count());
                 System.Diagnostics.Debug.WriteLine(t);
+
+                String userID = User.Identity.GetUserId();
+                if (t.ApplicationUserId.Equals(userID)){
+                    ViewBag.isOwner = true;
+                }
+          
 
                 return View(team);
             }
