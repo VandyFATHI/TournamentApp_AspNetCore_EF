@@ -36,11 +36,9 @@ namespace WebApplication1.Controllers
         {
             if(searchRequest is null || searchRequest == "")
             {
-                Console.WriteLine("Je suis dans la recherche");
                 return View(db.Tournaments.ToList());
             }
             else {
-                Console.WriteLine("Je suis dans la recherche 2 point zero");
                 return View(db.Tournaments.Where(a => a.name.Contains(searchRequest) || a.name == null).ToList());
             }
             }
@@ -68,6 +66,7 @@ namespace WebApplication1.Controllers
             return View(tournament);
         }
 
+        [Authorize]
         // GET: tournaments/Create
         public ActionResult Create()
         {
@@ -97,13 +96,15 @@ namespace WebApplication1.Controllers
             return View(tournament);
         }
 
-
+        [Authorize]
         public ActionResult CreateGame([Bind(Include = "id,nb_participants,description,game,name,start_date,team_size")] long? id)
         {
 
             Tournament t = db.Tournaments.Find(id);
             return RedirectToAction("Create", "games", new { id = id });
         }
+
+        [Authorize]
         // GET: tournaments/Edit/5
         public ActionResult Edit(long? id)
         {
@@ -139,6 +140,7 @@ namespace WebApplication1.Controllers
             return View(tournament);
         }
 
+        
         public ActionResult Edit_Game(long? id)
         {
             return RedirectToAction("Edit", "games", new { id = id });

@@ -56,6 +56,7 @@ namespace WebApplication1.Controllers
             return View(player);
         }
 
+        [Authorize]
         // GET: players/Create
         public ActionResult Create(long? id)
         {
@@ -86,6 +87,7 @@ namespace WebApplication1.Controllers
             return View(player);
         }
 
+        [Authorize]
         // GET: players/Edit/5
         public ActionResult Edit(long? id)
         {
@@ -121,6 +123,7 @@ namespace WebApplication1.Controllers
             return View(player);
         }
 
+        [Authorize]
         // GET: players/Delete/5
         public ActionResult Delete(long? id)
         {

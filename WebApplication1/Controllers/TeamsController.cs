@@ -13,7 +13,7 @@ namespace WebApplication1.Controllers
     public class TeamsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        
         // GET: teams
         public ActionResult Index(long? id)
         {
@@ -55,7 +55,7 @@ namespace WebApplication1.Controllers
             }
             return View(team);
         }
-
+        [Authorize]
         // GET: teams/Create
         public ActionResult Create(long? id)
         {
@@ -88,6 +88,7 @@ namespace WebApplication1.Controllers
             return View(team);
         }
 
+        
         public ActionResult addPlayer(long? id)
         {
             Team t = db.Teams.Find(id);
@@ -95,6 +96,7 @@ namespace WebApplication1.Controllers
   
         }
 
+        [Authorize]
         // GET: teams/Edit/5
         public ActionResult Edit(long? id)
         {
@@ -130,6 +132,7 @@ namespace WebApplication1.Controllers
             return View(team);
         }
 
+        [Authorize]
         // GET: teams/Delete/5
         public ActionResult Delete(long? id)
         {

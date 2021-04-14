@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<WebApplication1.Models.Tournament>
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Title = "Index";
@@ -13,17 +14,14 @@
 
     <form>
         <p>
-            Title: <input type="text" asp-for="SearchString" />
-            <input type="submit" value="Filter" />
+            <input id="searchtext" type="text" asp-for="SearchString" placeholder="Rechercher un tournois" onkeyup="SimpleSearch()"/>
         </p>
     </form>
 }
 
 <table class="table">
     <tr>
-        <th>
-            Tournament ID
-        </th>
+        
         <th>
             Name
         </th>
@@ -51,52 +49,75 @@
         </th>
         <th></th>
     </tr>
+    <tbody id="displayedTournaments">
+        @foreach (var item in Model)
+        {
+            <tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nb_participants)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.game)
-            </td>
-            @*  <td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nb_participants)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.game)
+                </td>
+                @*  <td>
                     @Html.DisplayFor(modelItem => item._private)
                 </td>*@
 
-            <td>
-                @Html.DisplayFor(modelItem => item.start_date)
-            </td>
-            @*<td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.start_date)
+                </td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.started)
                 </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.team_size)
-            </td>
-            <td>
-                @if (User.Identity.IsAuthenticated)
-                {
+                <td>
+                    @Html.DisplayFor(modelItem => item.team_size)
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Add a team", "addTeam", new { id = item.id }) <span>|</span>
 
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) <span>|</span>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id }) <span>|</span>
-                    @Html.ActionLink("Add a team", "addTeam", new { id = item.id }) <span>|</span>
+                        if (item.ApplicationUserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+                        {
 
-                }
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) <span>|</span>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id }) <span>|</span>
+                        }
+                    }
 
-                @Html.ActionLink("Details", "Details", new { id = item.id })
-            </td>
-        </tr>
-    }
+                    @Html.ActionLink("Details", "Details", new { id = item.id })
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>
+
+<script type="text/javascript">
+    function SimpleSearch() {
+        /* On récupère le tbody contenant les tournois */
+        const tb = document.getElementById("displayedTournaments");
+
+        /* La recherche effectuée */
+        const keyword = document.getElementById("searchtext");
+
+        /* Le nombre d'éléments affichés */
+        const len = tb.querySelectorAll('tr').length
+        //const len = tb.length;
+        for (var i = 0; i < len; i++) {
+            if (tb.getElementsByTagName("tr")[i].getElementsByTagName("td")[0].innerHTML.includes(keyword.value) === true) {
+                tb.getElementsByTagName("tr")[i].style.display = '';
+            } else {
+                tb.getElementsByTagName("tr")[i].style.display = 'none';
+            }
+        }
+    }
+</script>
 

@@ -37,6 +37,7 @@ namespace WebApplication1.Controllers
             return View(game);
         }
 
+        [Authorize]
         // GET: games/Create
         public ActionResult Create(long? id)
         {
@@ -77,6 +78,7 @@ namespace WebApplication1.Controllers
             return View(game);
         }
 
+        [Authorize]
         // GET: games/Edit/5
         public ActionResult Edit(long? id)
         {
@@ -121,6 +123,7 @@ namespace WebApplication1.Controllers
             return View(game);
         }
 
+        [Authorize]
         // GET: games/Delete/5
         public ActionResult Delete(long? id)
         {
