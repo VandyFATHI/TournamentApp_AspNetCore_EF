@@ -56,7 +56,7 @@ namespace WebApplication1.Controllers
             return View(player);
         }
 
-        [Authorize]
+        
         // GET: players/Create
         public ActionResult Create(long? id)
         {
