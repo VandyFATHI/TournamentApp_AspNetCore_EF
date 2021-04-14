@@ -6,6 +6,7 @@
     var tid = ViewBag.TID;
     var nbPlayer = ViewBag.nbPlayer;
     var tsize = ViewBag.tSize;
+    var isOwner = ViewBag.isOwner;
 
 }
 
@@ -43,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.team.name)
         </td>
         <td>
-            @if (User.IsInRole("Admin"))
+            @if (isOwner == true)
             {
                 @Html.ActionLink("Edit", "Edit", new { id = item.id }) <span>|</span>
                 @Html.ActionLink("Delete", "Delete", new { id = item.id }) <span>|</span>

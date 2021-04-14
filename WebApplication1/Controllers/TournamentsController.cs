@@ -63,6 +63,11 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
+            String userID = User.Identity.GetUserId();
+            if (tournament.ApplicationUserId.Equals(userID))
+            {
+                ViewBag.isOwner = true;
+            }
             return View(tournament);
         }
 

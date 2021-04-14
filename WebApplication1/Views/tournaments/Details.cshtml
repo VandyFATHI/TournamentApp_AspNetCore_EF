@@ -2,12 +2,12 @@
 
 @{
     ViewBag.Title = "Details";
+    var isOwner = ViewBag.isOwner;
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>tournament</h4>
     <hr />
     <dl class="dl-horizontal">
 
@@ -81,12 +81,12 @@
 
     </dl>
 </div>
-@if (User.IsInRole("Admin") )
-{
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) <span>|</span>
-    @Html.ActionLink("Create a new tournament game", "CreateGame", new { id = Model.id })<span>|</span>
+    @if (isOwner == true)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id }) <span>|</span>
+        @Html.ActionLink("Create a new tournament game", "CreateGame", new { id = Model.id })<span>|</span>
 
-}
+    }
 <p>
     @Html.ActionLink("Add a team", "addTeam", new { id = Model.id }) |
     @Html.ActionLink("See teams", "View_Team", new { id = Model.id }) 
@@ -132,14 +132,13 @@
     <td>
         @Html.DisplayFor(modelItem => game.team1.name)
     </td>
-
-    @if (User.IsInRole("Admin"))
-    {
-        @Html.ActionLink("Edit", "Edit_Game", new { id = game.id }) <span>|</span>
-        @Html.ActionLink("Details", "Details_Game", new { id = game.id }) <span>|</span>
-        @Html.ActionLink("Delete", "Delete_Game", new { id = game.id }) 
-    }
     <td>
+        @if (isOwner == true)
+        {
+            @Html.ActionLink("Edit", "Edit_Game", new { id = game.id }) <span>|</span>
+            @Html.ActionLink("Details", "Details_Game", new { id = game.id }) <span>|</span>
+            @Html.ActionLink("Delete", "Delete_Game", new { id = game.id })
+        }
     </td>
 </tr>
     }

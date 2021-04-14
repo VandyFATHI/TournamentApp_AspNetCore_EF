@@ -5,6 +5,7 @@
     var id = ViewBag.ID;
     var nbparticipant = ViewBag.tSize;
     var tnb = ViewBag.nbParticipant;
+    var isOwner = ViewBag.isOwner;
 }
 
 <h2>Index</h2>
@@ -54,11 +55,12 @@
         <td>
             @Html.ActionLink("Details", "Details", new { id = item.id }) |
             @Html.ActionLink("Join", "addPlayer", new { id = item.id })
-            @if (User.IsInRole("Admin"))
+            @if (isOwner == true)
             {
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) <span>|</span>
-                @Html.ActionLink("Delete", "Delete", new { id = item.id }) 
+                @Html.ActionLink("Edit", "Edit", new { id = item.id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
             }
+
         </td>
     </tr>
 }
