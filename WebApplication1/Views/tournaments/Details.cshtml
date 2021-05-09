@@ -81,15 +81,16 @@
 
     </dl>
 </div>
+<p>
     @if (isOwner == true)
     {
         @Html.ActionLink("Edit", "Edit", new { id = Model.id }) <span>|</span>
         @Html.ActionLink("Create a new tournament game", "CreateGame", new { id = Model.id })<span>|</span>
 
     }
-<p>
+
     @Html.ActionLink("Add a team", "addTeam", new { id = Model.id }) |
-    @Html.ActionLink("See teams", "View_Team", new { id = Model.id }) 
+    @Html.ActionLink("See teams", "View_Team", new { id = Model.id })
 </p>
 
 <table class="table">

@@ -43,10 +43,12 @@
 
     </dl>
 </div>
-@if (User.IsInRole("Admin")) {
-@Html.ActionLink("Edit", "Edit", new { id = Model.id }) <span>|</span>
-}
 <p>
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id }) <span>|</span>
+    }
+
 
     @Html.ActionLink("See Player", "View_Player", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index", new { id = Model.tournament_id })

@@ -54,10 +54,10 @@
         </td>
         <td>
             @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Join", "addPlayer", new { id = item.id })
+            @Html.ActionLink("Join", "addPlayer", new { id = item.id }) |
             @if (isOwner == true)
             {
-                @Html.ActionLink("Edit", "Edit", new { id = item.id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) <span>|</span> 
                 @Html.ActionLink("Delete", "Delete", new { id = item.id })
             }
 
